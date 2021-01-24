@@ -9,7 +9,7 @@ setuptools.setup(
     name="tumbling_window_stream_analytics",
     version="0.0.1",
 
-    description="An empty CDK Python app",
+    description="tumbling-window-stream-analytics",
     long_description=long_description,
     long_description_content_type="text/markdown",
 
@@ -19,7 +19,7 @@ setuptools.setup(
     packages=setuptools.find_packages(where="tumbling_window_stream_analytics"),
 
     install_requires=[
-        "aws-cdk.core==1.83.0",
+        "aws-cdk.core==1.85.0",
     ],
 
     python_requires=">=3.6",
