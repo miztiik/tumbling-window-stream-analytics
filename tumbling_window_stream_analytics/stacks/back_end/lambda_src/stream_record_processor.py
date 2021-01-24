@@ -60,7 +60,7 @@ def lambda_handler(event, context):
     evnt_state = event.get("state")
     # Create the state object on first invocation or use state passed in
     if not evnt_state:
-        evnt_state = {"sales": 0}
+        evnt_state = {"sales": 0, "tot_record_count": 0}
     logger.info(f"current_state:{evnt_state}")
 
     try:
@@ -70,10 +70,11 @@ def lambda_handler(event, context):
                 payload = base64.b64decode(record["kinesis"]["data"])
                 payload = json.loads(str(payload.decode("utf-8")))
                 logger.info(f"decoded_to_json: {payload}")
-                logger.info(f"payload_type: {type(payload)}")
+                # logger.info(f"payload_type: {type(payload)}")
                 # Process records with custom aggregation logic
                 if payload.get("sales"):
                     evnt_state["sales"] += payload.get("sales")
+        evnt_state["tot_record_count"] += len(event.get("Records"))
         if event.get("isFinalInvokeForWindow"):
             logger.info(f'{{"tumbling_window_end": True}}')
             write_data_to_s3(bucket_name, evnt_state)

@@ -94,8 +94,8 @@ def lambda_handler(event, context):
             tot_sales += _s
         resp["record_count"] = record_count
         resp["tot_sales"] = tot_sales
-        logger.info(f"resp: {json.dumps(resp)}")
         resp["status"] = True
+        logger.info(f"resp: {json.dumps(resp)}")
 
     except Exception as e:
         logger.error(f"ERROR:{str(e)}")
